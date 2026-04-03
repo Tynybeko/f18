@@ -7,102 +7,134 @@
     <title>Document</title>
     <style>
         * {
-            padding: 0;
             margin: 0;
+            padding: 0;
             box-sizing: border-box;
         }
 
-        dialog {
-            padding: auto;
-            margin: auto;
-        }
-
-        .items {
-            padding: 20px;
+        .right_bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow-x: hidden;
+            height: 100dvh;
+            width: 100vw;
+            transition: background 1s ease-in-out;
+            background-color: rgba(0, 0, 0, 0.398);
             display: flex;
-            flex-wrap: wrap;
-            width: 100%;
-            gap: 20px;
+            justify-content: end;
         }
 
-        .items .item {
-            border: 1px solid black;
-            border-radius: 20px;
-            flex: 1 0 200px;
+        .right_bar .content {
+            max-width: 300px;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            background-color: white;
+            flex-direction: column;
+            padding: 20px;
+            animation: fadeIn .5s 1 ease-in-out forwards;
+        }
+
+
+        .right_bar .content .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex: 0;
+        }
+
+        .right_bar .content .body {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .right_bar.closed {
+            display: none;
+        }
+
+      
+
+        .right_bar.closed .content {
+            transform: translateX(100%);
+            transition: 4s transform ease-in-out;
+
+        }
+
+        .right_bar .content .header .close_btn {
+            background-color: transparent;
+            cursor: pointer;
+            border: none;
+        }
+
+        .right_bar .content .header .close_btn:hover svg path {
+            fill: red;
+            transition: fill .2s ease-in-out;
+        }
+
+        .right_bar .content .header .close_btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                transform: translateX(100%);
+            }
+
+            to {
+                transform: translateX(0);
+            }
+        }
+
+          .right_bar .content.close {
+            animation: fadeIn 2s linear 1 reverse forwards;
+        }
+
+        .sneakers_item {
+            border: 1px solid red;
             padding: 10px;
             display: flex;
             flex-direction: column;
             gap: 10px;
-        }
 
-        .items .item .item-content {
-            width: 100%;
-            overflow: hidden;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-        }
-
-        .items .item .item-content.wrap {
-            width: 100%;
-            overflow: auto;
-            display: block;
-            -webkit-line-clamp: auto;
-        }
-
-        #item_dialog {
-            border: none;
-            background-color: transparent;
-        }
-
-        .item_dialog_content {
-            border: 1px solid red;
-            background-color: white;
-            padding: 20px;
-            border-radius: 20px;
-
+            p {
+                border: 1px solid black;
+            }
         }
     </style>
 </head>
 
 <body>
-    <button class="open_dialog">OPEN DIALOG</button>
-    <dialog id="item_dialog">
-        <div class="item_dialog_content">
-            <h3>Add Item</h3>
-            <form>
-                <label for="title">
-                    <p>Title</p>
-                    <input required type="text" name="title" id="title">
-                </label>
-                <label for="description">
-                    <p>Description</p>
-                    <textarea required type="text" name="desc" id="description"></textarea>
-                </label>
-                <label for="price">
-                    <p>Price</p>
-                    <input required type="number" name="price" id="price">
-                </label>
-                <div>
-                    <button>ADD</button>
-                    <button class="cancel" type="button">CANCEL</button>
-                </div>
-            </form>
+    <button class="open_cart_btn">OPEN CART</button>
+    <section id="right_bar" class="right_bar closed">
+        <div class="content">
+            <div class="header">
+                <button class="close_btn">
+                    <?xml version="1.0" encoding="UTF-8"?>
+                    <!-- Generator: Adobe Illustrator 25.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                        id="Capa_1" x="0px" y="0px" viewBox="0 0 512.021 512.021"
+                        style="enable-background:new 0 0 512.021 512.021;" xml:space="preserve" width="512"
+                        height="512">
+                        <g>
+                            <path
+                                d="M301.258,256.01L502.645,54.645c12.501-12.501,12.501-32.769,0-45.269c-12.501-12.501-32.769-12.501-45.269,0l0,0   L256.01,210.762L54.645,9.376c-12.501-12.501-32.769-12.501-45.269,0s-12.501,32.769,0,45.269L210.762,256.01L9.376,457.376   c-12.501,12.501-12.501,32.769,0,45.269s32.769,12.501,45.269,0L256.01,301.258l201.365,201.387   c12.501,12.501,32.769,12.501,45.269,0c12.501-12.501,12.501-32.769,0-45.269L301.258,256.01z" />
+                        </g>
+                    </svg>
+                </button>
+                <h2>Корзина</h2>
+            </div>
+            <div class="body"></div>
         </div>
-    </dialog>
-    <main>
-        <div class="items">
+    </section>
+    <section class="sneakers_content">
 
-        </div>
-    </main>
-    <template id="product-template">
-        <div class="item">
-            <h3 class="item-title">Название товара</h3>
-            <p class="item-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, commodi quas. Quam
-                odio, consequuntur
-                praesentium dolorem mollitia non, aut voluptas, dolore ducimus ab velit magni. Impedit, explicabo
-                sit. Rerum, velit.</p>
-            <p class="item-price">price: <strong>230</strong></p>
+    </section>
+    <template id="sneakers_item_template">
+        <div class="sneakers_item">
+            <h2>Title</h2>
+            <p>Pricce</p>
         </div>
     </template>
     <script src="./test.js"></script>
