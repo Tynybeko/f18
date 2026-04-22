@@ -48,7 +48,7 @@ async function getParents() {
                                 const clone = parentTemplate.content.cloneNode(true);
                                 clone.querySelector('.fullname').textContent = el.title
                                 clone.querySelector('.age').textContent = el.body
-                                clone.querySelector('.address strong').remove()
+                                clone.querySelector('.address').remove()
                                 childsBlocks.append(clone)
                             })
                         }
