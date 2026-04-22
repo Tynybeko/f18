@@ -1,66 +1,80 @@
-const data = [
-    {
-        id: 1,
-        title: 'Nike',
-        price: 200
-    },
-    {
-        id: 2,
-        title: 'Puma',
-        price: 170
-    },
-    {
-        id: 3,
-        title: 'Adidas',
-        price: 250
-    },
+const parents = [
+    { id: 1, name: "Ali", age: 40, city: "Tashkent" },
+    { id: 2, name: "Vali", age: 38, city: "Samarkand" }
 ]
 
-let cart = []
+const children = [
+    { id: 1, name: "Ali Jr", age: 10, parentId: 1 },
+    { id: 2, name: "Ali Jr 2", age: 7, parentId: 1 },
+    { id: 3, name: "Vali Jr", age: 12, parentId: 2 }
+]
+const BASE_URL = `https://jsonplaceholder.typicode.com/`
+const parentTemplate = document.getElementById('parent_template')
+const parentsBlocks = document.querySelector('.parents-block')
+const blocks = parentsBlocks.getElementsByClassName('parents-item')
+const loader = document.getElementById('loader');
+async function getParents() {
+    try {
+        loader.classList.remove('hidden')
+        const response = await fetch(BASE_URL + 'users')
+        if (response.ok) {
+            const data = await response.json()
+            data.forEach(parent => {
+                const clone = parentTemplate.content.cloneNode(true);
+                clone.querySelector('.parents-item').setAttribute('data-parent', parent.id)
+                clone.querySelector('.fullname').textContent = parent.name
+                clone.querySelector('.age strong').textContent = parent.email
+                clone.querySelector('.address strong').textContent = parent.address.city
+                parentsBlocks.append(clone)
+            })
+            for (let item of blocks) {
+                item.addEventListener('click', async (e) => {
+                    const target = e.currentTarget
+                    const loading = target.querySelector('.loading')
+                    const isOpen = target.classList.toggle('child')
+                    if (!isOpen) {
+                        childsBlocks.innerHTML = ''
+                        return
+                    }
+                    try {
+                        loading.classList.remove('hidden')
+                        const idParent = target.dataset.parent
+                        const response = await fetch(BASE_URL + `users/${idParent}/posts`)
+                        if (response.ok) {
+                            const data = await response.json()
+                            const childsBlocks = target.querySelector('.childs')
+
+                            data.forEach(el => {
+                                const clone = parentTemplate.content.cloneNode(true);
+                                clone.querySelector('.fullname').textContent = el.title
+                                clone.querySelector('.age').textContent = el.body
+                                clone.querySelector('.address strong').remove()
+                                childsBlocks.append(clone)
+                            })
+                        }
 
 
-let sneakersContent = document.querySelector('.sneakers_content')
-let sneakersItemTemplate = document.getElementById('sneakers_item_template')
-for (let item of data) {
-    const template = sneakersItemTemplate.content.cloneNode(true)
-    template.querySelector('h2').textContent = item.title
-    template.querySelector('p').textContent = item.price
-    template.querySelector('div').addEventListener('click', () => {
-        let newCart = [...cart, item]
-        setCartItem(newCart)
-        cart = newCart
-    })
-    sneakersContent.append(template)
+                    } catch (err) {
+                        console.log(err);
+
+                    } finally {
+                        loading.classList.add('hidden')
+
+                    }
+
+                })
+            }
+        } else {
+            throw new Error('Не удалось получить данные')
+        }
+
+    } catch (err) {
+
+    } finally {
+        loader.classList.add('hidden')
+    }
 
 }
 
 
-let openBtn = document.querySelector('.open_cart_btn')
-let rightBar = document.getElementById('right_bar')
-let rightBarContent = rightBar.querySelector('.content')
-let rightBarContentBody = rightBar.querySelector('.content .body')
-let closeBtn = rightBar.querySelector('.close_btn')
-
-function setCartItem(cartItems) {
-    for (let item of cartItems) {
-        const template = sneakersItemTemplate.content.cloneNode(true)
-        template.querySelector('h2').textContent = item.title
-        template.querySelector('p').textContent = item.price
-        rightBarContentBody.append(template)
-    }
-}
-
-openBtn.addEventListener('click', () => {
-    rightBar.classList.toggle('closed')
-})
-
-
-closeBtn.addEventListener('click', () => {
-    rightBarContent.classList.add('close')
-    const closeContent = () => {
-        rightBarContent.classList.remove('close')
-        rightBar.classList.add('closed')
-        rightBarContent.removeEventListener('animationend', closeContent)
-    }
-    rightBarContent.addEventListener('animationend', closeContent)
-})
+getParents()
