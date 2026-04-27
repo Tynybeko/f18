@@ -8,141 +8,95 @@
   <style>
     * {
       padding: 0;
-      margin: 0;
       box-sizing: border-box;
+      margin: 0;
     }
 
-    .parents-block {
-      padding: 20px;
+    header {
       display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
       width: 100%;
+      justify-content: space-between;
+      padding: 10px 20px;
+      border-bottom: 1px solid green;
     }
 
-    .parents-item {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      border: 1px solid black;
-      border-radius: 20px;
-      padding: 20px;
-      max-width: 300px;
-      transition: all .3s ease-in-out;
-      width: 100%;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .parents-item .loading {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      z-index: 10;
-      background-color: rgba(8, 8, 8, 0.411);
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .parents-item .loading.hidden {
+    .modal {
       display: none;
-    }
-
-    .parents-item h3 {
-      border-bottom: 1px solid red;
-    }
-
-    .parents-item.child {
-      max-width: 100%;
-    }
-
-    .parents-item .childs {
-      display: none;
-      gap: 10px;
-
-    }
-
-    .parents-item.child .childs {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .parents-item.child .childs .parents-item {
-      max-width: 100%;
-    }
-
-    .loader-backdrop {
       position: fixed;
+      z-index: 1;
+      width: 100vw;
+      height: 100vh;
+      justify-content: center;
+      align-items: center;
+      background-color: rgba(0, 0, 0, 0.444);
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
+    }
 
-      background: rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(3px);
-
+    .opened {
       display: flex;
-      align-items: center;
-      justify-content: center;
-
-      z-index: 9999;
     }
 
-    /* Hidden state */
-    .hidden {
-      display: none;
+    .modal_inner {
+      display: flex;
+      background-color: white;
+      max-width: 500px;
+      padding: 20px;
+      border-radius: 20px;
+      position: relative;
     }
 
-    /* Spinner */
-    .spinner {
-      width: 60px;
-      height: 60px;
-
-      border: 6px solid #ccc;
-      border-top: 6px solid #3498db;
-
-      border-radius: 50%;
-
-      animation: spin 1s linear infinite;
+    .close_btn {
+      position: absolute;
+      top: 10px;
+      transition: transform .3s ease-in-out;
+      right: 10px;
     }
 
-    @keyframes spin {
-      0% {
-        transform: rotate(0deg);
-      }
+    .close_btn:hover {
+      cursor: pointer;
+      transform: scale(1.1);
+    }
 
-      100% {
-        transform: rotate(360deg);
-      }
+
+    .close_btn:hover svg path {
+      fill: green;
+    }
+
+    .close_btn svg {
+      transition: all .3s ease-in-out;
+      width: 20px;
+      height: 20px;
     }
   </style>
 </head>
 
 <body>
-  <section class="parents-block">
+  <header>
+    <h2>Logo</h2>
+    <nav>
 
-  </section>
-  <template id="parent_template">
-    <div class="parents-item">
-      <div class="loading hidden">
-        <p>Loading...</p>
+    </nav>
+    <button id="login">Login</button>
+  </header>
+  <div class="modal">
+    <div class="modal_inner">
+      <div class="close_btn">
+        <?xml version="1.0" encoding="UTF-8"?>
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1"
+          x="0px" y="0px" viewBox="0 0 512.021 512.021" style="enable-background:new 0 0 512.021 512.021;"
+          xml:space="preserve" width="512" height="512">
+          <g>
+            <path
+              d="M301.258,256.01L502.645,54.645c12.501-12.501,12.501-32.769,0-45.269c-12.501-12.501-32.769-12.501-45.269,0l0,0   L256.01,210.762L54.645,9.376c-12.501-12.501-32.769-12.501-45.269,0s-12.501,32.769,0,45.269L210.762,256.01L9.376,457.376   c-12.501,12.501-12.501,32.769,0,45.269s32.769,12.501,45.269,0L256.01,301.258l201.365,201.387   c12.501,12.501,32.769,12.501,45.269,0c12.501-12.501,12.501-32.769,0-45.269L301.258,256.01z" />
+          </g>
+        </svg>
       </div>
-      <h3 class="fullname">John Smith</h3>
-      <p class="address">City: <strong>Tashkent</strong></p>
-      <p class="age">Email: <strong>25</strong></p>
-      <div class="childs"></div>
+
+
+
     </div>
-  </template>
-
-
-  <div id="loader" class="loader-backdrop hidden">
-    <div class="spinner"></div>
   </div>
-
   <script src="./test.js"></script>
 </body>
 
