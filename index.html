@@ -8,95 +8,107 @@
   <style>
     * {
       padding: 0;
-      box-sizing: border-box;
       margin: 0;
+      box-sizing: border-box;
     }
 
-    header {
+    .flowers {
       display: flex;
-      width: 100%;
-      justify-content: space-between;
-      padding: 10px 20px;
-      border-bottom: 1px solid green;
+      gap: 20px;
+      flex-wrap: wrap;
+
     }
 
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1;
-      width: 100vw;
-      height: 100vh;
-      justify-content: center;
+    .flower_item {
+      border: 1px solid black;
+      display: flex;
+      flex-direction: column;
+      gap: 2;
+      padding: 5px;
+    }
+
+    .flower_item img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .pagination {
+      display: flex;
       align-items: center;
-      background-color: rgba(0, 0, 0, 0.444);
-      top: 0;
-      left: 0;
+      margin: 0 auto;
+      gap: 20px;
     }
 
-    .opened {
+    .pagination .pagination_items {
       display: flex;
+      gap: 10px;
+      align-items: center;
+
+
+
     }
 
-    .modal_inner {
-      display: flex;
-      background-color: white;
-      max-width: 500px;
-      padding: 20px;
-      border-radius: 20px;
-      position: relative;
-    }
-
-    .close_btn {
-      position: absolute;
-      top: 10px;
-      transition: transform .3s ease-in-out;
-      right: 10px;
-    }
-
-    .close_btn:hover {
-      cursor: pointer;
-      transform: scale(1.1);
+    .pagination_btn {
+      text-align: center;
+      background-color: transparent;
+      padding: 3px 5px;
+      border-radius: 5px;
     }
 
 
-    .close_btn:hover svg path {
-      fill: green;
-    }
 
-    .close_btn svg {
-      transition: all .3s ease-in-out;
+    .pagination .pagination_items_item {
       width: 20px;
       height: 20px;
+      border-radius: 5px;
+      text-align: center;
+    }
+
+    .pagination_actions {
+      transition: all .3s ease-in-out;
+      cursor: pointer;
+      border: 1px solid green;
+    }
+
+    .pagination_actions:hover {
+      background-color: green;
+      color: white;
+    }
+
+    .pagination_actions.active {
+      background-color: green;
+      color: white;
+    }
+
+    .pagination_btn:disabled {
+      background-color: grey;
+      color: white;
+      cursor: auto;
     }
   </style>
 </head>
 
 <body>
-  <header>
-    <h2>Logo</h2>
-    <nav>
+  <section class="flowers">
 
+  </section>
+  <div class="pagination">
+    <button class="pagination_btn pagination_actions prev">PREV</button>
+    <nav class="pagination_items">
+      <p class="pagination_items_item pagination_actions ">1</p>
     </nav>
-    <button id="login">Login</button>
-  </header>
-  <div class="modal">
-    <div class="modal_inner">
-      <div class="close_btn">
-        <?xml version="1.0" encoding="UTF-8"?>
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1"
-          x="0px" y="0px" viewBox="0 0 512.021 512.021" style="enable-background:new 0 0 512.021 512.021;"
-          xml:space="preserve" width="512" height="512">
-          <g>
-            <path
-              d="M301.258,256.01L502.645,54.645c12.501-12.501,12.501-32.769,0-45.269c-12.501-12.501-32.769-12.501-45.269,0l0,0   L256.01,210.762L54.645,9.376c-12.501-12.501-32.769-12.501-45.269,0s-12.501,32.769,0,45.269L210.762,256.01L9.376,457.376   c-12.501,12.501-12.501,32.769,0,45.269s32.769,12.501,45.269,0L256.01,301.258l201.365,201.387   c12.501,12.501,32.769,12.501,45.269,0c12.501-12.501,12.501-32.769,0-45.269L301.258,256.01z" />
-          </g>
-        </svg>
-      </div>
+    <button class="pagination_btn pagination_actions next">NEXT</button>
 
-
-
-    </div>
   </div>
+  <template id="flower_template">
+    <div class="flower_item">
+      <img src="" alt="">
+      <h3>Title</h3>
+      <p>PRICE</p>
+    </div>
+  </template>
+
   <script src="./test.js"></script>
 </body>
 
